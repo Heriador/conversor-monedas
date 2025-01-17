@@ -23,7 +23,7 @@ public class ExchangeRateAPI {
         this.gson = new Gson();
     }
 
-    public ExchangeRateResponse getCurrency(String currencyCode){
+    public ExchangeRateResponse getCurrencyInfo(String currencyCode){
        try{
 
            HttpRequest request = HttpRequest.newBuilder()

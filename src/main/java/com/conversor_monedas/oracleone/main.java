@@ -1,6 +1,8 @@
 package com.conversor_monedas.oracleone;
 
 import com.conversor_monedas.oracleone.api.ExchangeRateAPI;
+import com.conversor_monedas.oracleone.services.ConversionService;
+import com.conversor_monedas.oracleone.view.CurrencyConvertirCLI;
 
 
 public class main {
@@ -10,9 +12,13 @@ public class main {
 
         ExchangeRateAPI api = new ExchangeRateAPI(apiKey);
 
+        ConversionService conversionService = new ConversionService();
+
+        CurrencyConvertirCLI cli = new CurrencyConvertirCLI(conversionService);
+        cli.start();
 
 
-        System.out.println(api.getCurrency("COP").toString());
+        System.out.println(api.getCurrencyInfo("COP").toString());
 
     }
 }
