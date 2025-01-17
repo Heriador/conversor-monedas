@@ -1,5 +1,6 @@
 package com.conversor_monedas.oracleone.view;
 
+import com.conversor_monedas.oracleone.models.ConversionResult;
 import com.conversor_monedas.oracleone.models.Currency;
 import com.conversor_monedas.oracleone.services.ConversionService;
 
@@ -54,19 +55,24 @@ public class CurrencyConvertirCLI {
 
             System.out.println("\nSelecciona la moneda de origen: ");
             int monedaOrigen = scanner.nextInt();
-            scanner.nextLine();
 
             System.out.println("\nSelecciona la monedade destino: ");
             int monedaDestino = scanner.nextInt();
-            scanner.nextLine();
 
             System.out.println("\nIngrese la cantidad de " + currencies[monedaOrigen-1].code() + " a convertir: ");
             double cantidad = scanner.nextDouble();
-            scanner.nextLine();
 
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            ConversionResult result = conversionService.convert(currencies[monedaOrigen-1], currencies[monedaDestino-1], cantidad);
+
+            System.out.println("\nResultado de la conversion: ");
+            System.out.println("Monto inicial: "+result.initialAmount() +" "+result.fromCurrency().code());
+            System.out.println("Monto convertido: "+result.convertedAmount()+" " +result.toCurrency().code());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Moneda no válida");
+        }
+        catch (Exception e){
+            System.out.println("Error: "+e.getMessage());
         }
     }
 }
